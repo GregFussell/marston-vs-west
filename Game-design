@@ -1,0 +1,39 @@
+Marston V West
+
+Needs:
+Generic fighter class (possibly state machine?)
+Fighter status (Block, health, attack?, location or link to collision)
+Working attacks (hit detection)
+Stage
+
+
+Wants:
+Sound Effects
+Music
+Timer
+Menu
+Scoreboard (fastest KOs, winstreak, rank)
+Multiplayer local
+Different stages
+Different fighters
+Vis FX(explosion?)
+Items (hemet, drinks)
+
+
+
+
+Fighter mechanics/input
+Button for attack (Kick and Punch), maybe a shield/guard
+P1: (wasd movement, c,v punch kick) b for block 
+P2:(arrow keys movement and [ ,] punch kick) \ block
+Fighter status (Block, health, attack?, location or link to collision)
+
+
+Fighter class:
+Currently only two fighters exist in game, we need to develop a fighter class in order to make it more efficient to create new fighters for the game, as well as selecting them in game.
+
+Hit detection/hitboxes
+Hit boxes currently exist superficially, there are issues in getting collision detection of attacks. We need to update or create collision detection logic between attacks and other fighters.
+
+Menu
+	A simple menu for selecting fighters and maps is a goal for after fight mechanics are functional
