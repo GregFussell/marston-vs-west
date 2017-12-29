@@ -36,14 +36,18 @@ Hit detection/hitboxes
 Hit boxes currently exist superficially, there are issues in getting collision detection of attacks. We need to update or create collision detection logic between attacks and other fighters.
 
 
-Menu
-	A simple menu for selecting fighters and maps is a goal for after fight mechanics are functional
+Menu:
+A simple menu for selecting fighters and maps is a goal for after fight mechanics are functional
 	
 	
 	
 	
-Fighters
+Fighters:
 
 Currently only a generic boy and girl fighter in a variety of skin tones exist
-
 Sandbag from smashbros exist in prototype for humor and for testing
+
+Items:
+Helmet, an item to buff fighter temporarily
+sportsbottle, increase health/reduce damage
+Book, a throwable item to damage target
