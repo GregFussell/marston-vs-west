@@ -32,10 +32,10 @@ function preload() {
     game.load.spritesheet('helmet', 'assets/helmet.png', 32, 32 );
     game.load.spritesheet('bottle', 'assets/bottle.png', 32, 32 );
     game.load.spritesheet('book', 'assets/book.png', 32, 32 );
-		game.load.spritesheet('menu', 'assets/menu.png', 64, 32 );
+		game.load.spritesheet('menu1', 'assets/menu.png', 32, 32 );
 
 }
-var menu;
+var menu1;
 var player;
 var weapon;
 var weapon2;
@@ -73,7 +73,7 @@ var hitboxes;
 var prevkey; //currently unused
 
 var punchingBag;
-
+var menuState;
 
 function create() {
 
@@ -107,7 +107,7 @@ function create() {
 
     // The player and its settings
     player = game.add.sprite(90, game.world.height - 150, 'dude');
-		menu = game.add.sprite(45, game.world.height - 150, 'menu');
+		menu1 = game.add.sprite(90, game.world.height - 150, 'menu1');
     player.scale.x = 2;
     player.scale.y = 2;
     player.anchor.setTo(.5,0);
@@ -157,8 +157,8 @@ function create() {
     //playerstate variable
     playerstate = 0; //0 is idle, 1 is punch, 2 is kick
 // Menu Animations
-		menu.animations.add('notSelected', [0], 0, true);
-		menu.animations.add('selected', [1], 0, true);
+		menu1.animations.add('notSelected', [0], 0, true);
+		menu1.animations.add('selected', [1], 1, true);
 
 
     //create weapons
@@ -363,6 +363,13 @@ enemyText.text = 'Energy: ' + j;
 }
 
 function update() {
+//Menu animations
+
+menu1.animations.play('notSelected');
+//player.animations.play('idle');
+
+
+
 
     //  Collide the player and the stars with the platforms
     game.physics.arcade.collide(player, platforms);
