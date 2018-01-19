@@ -179,8 +179,10 @@ function update() {
     //  Collide the player and the stars with the platforms
     game.physics.arcade.collide(Player2.character, platforms); 
 
-   	/* 
+   	
     //player2 stuff
+   
+   /*
     if(Player2.character.body.velocity.x > 20)
     {
         Player2.character.body.velocity.x = Player2.character.body.velocity.x - 20;
@@ -190,9 +192,10 @@ function update() {
     {
         Player2.character.body.velocity.x = Player2.character.body.velocity.x + 20;
     }
+
     else if(Player2.character.body.velocity.x >= -20 && Player2.character.body.velocity.x <= 20)
     {
-        Player2.body.velocity.x = 0;
+        Player2.character.body.velocity.x = 0;
     }
 	*/
 
