@@ -25,6 +25,8 @@ function preload() {
     //game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
     
     game.load.spritesheet('dude', 'assets/Fighter1master.png', 36, 42);
+    game.load.spritesheet('chick', 'assets/Fighter2master.png', 36, 42);
+
     game.load.image('hitboxTest', 'assets/testHitbox.png');
     game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32 );
     game.load.spritesheet('slash', 'assets/slash (1).png', 64, 64 );
@@ -71,9 +73,11 @@ var hitboxes;
 
 var prevkey; //currently unused
 
-var Player2;
-var controller2;
+var Player1;
+var Player1;
 
+var controller1;
+var controller2;
 
 
 function create() {
@@ -108,54 +112,57 @@ function create() {
 
 
 
-    Player2 = new Fighter('dude', 100, 200,300);
-    Player2.character.anchor.setTo(0.5,0);
+    Player1 = new Fighter('dude', 100, 200,300,1);
+    Player2 = new Fighter('chick', 100, 400,300,2);
+    //Player1.character.anchor.setTo(0.5,0);
 
         //  We need to enable physics on the player
-    game.physics.arcade.enable(Player2.character);
+    /*game.physics.arcade.enable(Player1.character);
 
     //  Player physics properties. Give the little guy a slight bounce.
-    Player2.character.body.bounce.y = 0;//0.2;
-    Player2.character.body.gravity.y = 400;
-    Player2.character.body.collideWorldBounds = true;
+    Player1.character.body.bounce.y = 0;//0.2;
+    Player1.character.body.gravity.y = 400;
+    Player1.character.body.collideWorldBounds = true;
 
 
-    Player2.character.animations.add('right', [2, 3, 0], 10, true);
+    Player1.character.animations.add('right', [2, 3, 0], 10, true);
     
     //idle animation
-    Player2.character.animations.add('idle', [0, 1], 5, true);
+    Player1.character.animations.add('idle', [0, 1], 5, true);
     
     //jump animation
-    Player2.character.animations.add('jump', [8, 9], 5, true); //need to adjust animation speed
+    Player1.character.animations.add('jump', [8, 9], 5, true); //need to adjust animation speed
     
     //shield animation
-    Player2.character.animations.add('shield', [7], 5, true);
+    Player1.character.animations.add('shield', [7], 5, true);
     
     //punch animations
-    Player2.character.animations.add('punch', [5], 5, true);
+    Player1.character.animations.add('punch', [5], 5, true);
     
     //kick
-    Player2.character.animations.add('kick', [6], 5, true);
+    Player1.character.animations.add('kick', [6], 5, true);
 
     //player got hit animation
-    Player2.character.animations.add('ko', [7], 5, true);
+    Player1.character.animations.add('ko', [7], 5, true);
 
 
-    Player2.character.scale.x = 2;
-    Player2.character.scale.y = 2;
-
+    Player1.character.scale.x = 2;
+    Player1.character.scale.y = 2;
+    */
     
     //  controls
     //cursors  = game.input.keyboard.createCursorKeys();
     //cursors = new Object();
-    cursors = game.input.keyboard.addKeys({ 'up': Phaser.KeyCode.UP, 'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 'right': Phaser.KeyCode.RIGHT });
+    /*cursors = game.input.keyboard.addKeys({ 'up': Phaser.KeyCode.UP, 'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 'right': Phaser.KeyCode.RIGHT });
     
     punchkey = game.input.keyboard.addKey(Phaser.Keyboard.P);
     kickkey  = game.input.keyboard.addKey(Phaser.Keyboard.O);
     fireButton = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
+	*/
 
-    controller2 = new Object();
-    controller2 = game.input.keyboard.addKeys({ 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D , 'punch': Phaser.KeyCode.T, 'kick': Phaser.KeyCode.R});
+
+    //controller2 = new Object();
+    //controller2 = game.input.keyboard.addKeys({ 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D , 'punch': Phaser.KeyCode.T, 'kick': Phaser.KeyCode.R});
 
 
     //controller2 = game.input.keyboard.addKeys( { 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D, 'tackle': Phaser.Keycode.T } );
@@ -177,113 +184,239 @@ healthText.text = 'Health: ' + myPlayer.health;
 function update() {
 
     //  Collide the player and the stars with the platforms
-    game.physics.arcade.collide(Player2.character, platforms); 
+    game.physics.arcade.collide(Player1.character, platforms); 
+    game.physics.arcade.collide(Player2.character, platforms);
+    game.physics.arcade.collide(Player1.character,Player2.character); 
 
-   	
-    //player2 stuff
+   	updateInput(controller1,Player1);
+   	updateInput(controller2,Player2);
+
+    //Player1 stuff
    
    /*
-    if(Player2.character.body.velocity.x > 20)
+    if(Player1.character.body.velocity.x > 20)
     {
-        Player2.character.body.velocity.x = Player2.character.body.velocity.x - 20;
+        Player1.character.body.velocity.x = Player1.character.body.velocity.x - 20;
     }
 
-    else if(Player2.character.body.velocity.x < -20)
+    else if(Player1.character.body.velocity.x < -20)
     {
-        Player2.character.body.velocity.x = Player2.character.body.velocity.x + 20;
+        Player1.character.body.velocity.x = Player1.character.body.velocity.x + 20;
     }
 
-    else if(Player2.character.body.velocity.x >= -20 && Player2.character.body.velocity.x <= 20)
+    else if(Player1.character.body.velocity.x >= -20 && Player1.character.body.velocity.x <= 20)
     {
-        Player2.character.body.velocity.x = 0;
+        Player1.character.body.velocity.x = 0;
     }
 	*/
 
-    
-    if (controller2.left.isDown)
+    /*
+    if (controller1.left.isDown)
     {
         //  Move to the left
         
         
-        if (Player2.character.scale.x > 0 ){
-        Player2.character.scale.x *=-1;
+        if (Player1.character.scale.x > 0 ){
+        Player1.character.scale.x *=-1;
         }
         
-        Player2.character.body.velocity.x = -250;
-        Player2.character.animations.play('right');
+        Player1.character.body.velocity.x = -250;
+        Player1.character.animations.play('right');
     }
 
-    else if (controller2.right.isDown)
+    else if (controller1.right.isDown)
     {
         //  Move to the right
         
         //logic to change direction facing
-        if (Player2.character.scale.x < 0 ){
-        Player2.character.scale.x *=-1;
+        if (Player1.character.scale.x < 0 ){
+        Player1.character.scale.x *=-1;
         }
         
-        Player2.character.body.velocity.x = 250;
-        Player2.character.animations.play('right');
+        Player1.character.body.velocity.x = 250;
+        Player1.character.animations.play('right');
     }
-    else if (controller2.up.isDown && Player2.character.body.touching.down)
+    else if (controller1.up.isDown && Player1.character.body.touching.down)
     {
-        Player2.character.body.velocity.y = -350;
+        Player1.character.body.velocity.y = -350;
     }
-     else if (controller2.down.isDown && Player2.character.body.touching.down)
+     else if (controller1.down.isDown && Player1.character.body.touching.down)
     {
-        Player2.character.animations.play('shield');
+        Player1.character.animations.play('shield');
     }
-    else if (controller2.punch.isDown)
+    else if (controller1.punch.isDown)
     {
         //logic to change direction facing
-        if (Player2.character.scale.x < 0 ){
-       Player2.character.body.velocity.x = -250;
+        if (Player1.character.scale.x < 0 ){
+       Player1.character.body.velocity.x = -250;
         }
         else
         {
-        Player2.character.body.velocity.x = 250;
+        Player1.character.body.velocity.x = 250;
         }
 
-        Player2.character.animations.play('punch');
+        Player1.character.animations.play('punch');
     }        
-    else if (controller2.kick.isDown)
+    else if (controller1.kick.isDown)
     {
         //  Move to the right
         
         //logic to change direction facing
-        if (Player2.character.scale.x < 0 ){
-       Player2.character.body.velocity.x = -250;
+        if (Player1.character.scale.x < 0 ){
+       Player1.character.body.velocity.x = -250;
         }
         else
         {
-        Player2.character.body.velocity.x = 250;
+        Player1.character.body.velocity.x = 250;
         }
 
-        Player2.character.animations.play('kick');
+        Player1.character.animations.play('kick');
     }        
     else
     {
-        Player2.character.body.velocity.x = 0;
-        Player2.character.animations.play('idle');
-    }
+        Player1.character.body.velocity.x = 0;
+        Player1.character.animations.play('idle');
+    }*/
     
 
     
     
 }
 
-//fghter class
-function Fighter(character,health,startx,starty) 
+//fighter class
+function Fighter(character,health,startx,starty,controlnum) 
     {
 
-    this.health = 100;//player start health
+    this.health = health;//player start health
     this.state = 0; //player state for state machine?
     this.startx = startx;
     this.starty = starty;
     this.character = game.add.sprite(startx, starty, character);//player character variable to access sprite from phaser and all its properties character variable is name of spritesheet to use
 
+    this.character.anchor.setTo(0.5,0);
+
+        //  We need to enable physics on the player
+    game.physics.arcade.enable(this.character);
+
+    //  Player physics properties. Give the little guy a slight bounce.
+    this.character.body.bounce.y = 0;//0.2;
+    this.character.body.gravity.y = 400;
+    this.character.body.collideWorldBounds = true;
+
+
+    this.character.animations.add('right', [2, 3, 0], 10, true);
+    
+    //idle animation
+    this.character.animations.add('idle', [0, 1], 5, true);
+    
+    //jump animation
+    this.character.animations.add('jump', [8, 9], 5, true); //need to adjust animation speed
+    
+    //shield animation
+    this.character.animations.add('shield', [7], 5, true);
+    
+    //punch animations
+    this.character.animations.add('punch', [5], 5, true);
+    
+    //kick
+    this.character.animations.add('kick', [6], 5, true);
+
+    //player got hit animation
+    this.character.animations.add('ko', [7], 5, true);
+
+
+    this.character.scale.x = 2;
+    this.character.scale.y = 2;
+
+    //this.controller1 = game.input.keyboard.addKeys({ 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D , 'punch': Phaser.KeyCode.T, 'kick': Phaser.KeyCode.R});
+
+    if(controlnum == 1)
+    {
+    this.controller1 = new Object;
+    controller1 = game.input.keyboard.addKeys({ 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D , 'punch': Phaser.KeyCode.T, 'kick': Phaser.KeyCode.R});
+	}
+	else if(controlnum == 2)
+	{
+	this.controller2 = new Object;
+	controller2 = game.input.keyboard.addKeys({ 'up': Phaser.KeyCode.UP, 'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 'right': Phaser.KeyCode.RIGHT , 'punch': Phaser.KeyCode.O, 'kick': Phaser.KeyCode.P});
+	}
+
+
+
     }
 
+
+
+function updateInput(controller,Fighter)
+{
+if (controller.left.isDown)
+    {
+        //  Move to the left
+        
+        
+        if (Fighter.character.scale.x > 0 ){
+        Fighter.character.scale.x *=-1;
+        }
+        
+        Fighter.character.body.velocity.x = -250;
+        Fighter.character.animations.play('right');
+    }
+
+    else if (controller.right.isDown)
+    {
+        //  Move to the right
+        
+        //logic to change direction facing
+        if (Fighter.character.scale.x < 0 ){
+        Fighter.character.scale.x *=-1;
+        }
+        
+        Fighter.character.body.velocity.x = 250;
+        Fighter.character.animations.play('right');
+    }
+    else if (controller.up.isDown && Fighter.character.body.touching.down)
+    {
+        Fighter.character.body.velocity.y = -350;
+    }
+     else if (controller.down.isDown && Fighter.character.body.touching.down)
+    {
+        Fighter.character.animations.play('shield');
+    }
+    else if (controller.punch.isDown)
+    {
+        //logic to change direction facing
+        if (Fighter.character.scale.x < 0 ){
+       Fighter.character.body.velocity.x = -250;
+        }
+        else
+        {
+        Fighter.character.body.velocity.x = 250;
+        }
+
+        Fighter.character.animations.play('punch');
+    }        
+    else if (controller.kick.isDown)
+    {
+        //  Move to the right
+        
+        //logic to change direction facing
+        if (Fighter.character.scale.x < 0 ){
+       Fighter.character.body.velocity.x = -250;
+        }
+        else
+        {
+        Fighter.character.body.velocity.x = 250;
+        }
+
+        Fighter.character.animations.play('kick');
+    }        
+    else
+    {
+        Fighter.character.body.velocity.x = 0;
+        Fighter.character.animations.play('idle');
+    }
+
+}
 
 function render() {
 
