@@ -114,70 +114,7 @@ function create() {
 
     Player1 = new Fighter('dude', 100, 200,300,1);
     Player2 = new Fighter('chick', 100, 400,300,2);
-    //Player1.character.anchor.setTo(0.5,0);
-
-        //  We need to enable physics on the player
-    /*game.physics.arcade.enable(Player1.character);
-
-    //  Player physics properties. Give the little guy a slight bounce.
-    Player1.character.body.bounce.y = 0;//0.2;
-    Player1.character.body.gravity.y = 400;
-    Player1.character.body.collideWorldBounds = true;
-
-
-    Player1.character.animations.add('right', [2, 3, 0], 10, true);
-    
-    //idle animation
-    Player1.character.animations.add('idle', [0, 1], 5, true);
-    
-    //jump animation
-    Player1.character.animations.add('jump', [8, 9], 5, true); //need to adjust animation speed
-    
-    //shield animation
-    Player1.character.animations.add('shield', [7], 5, true);
-    
-    //punch animations
-    Player1.character.animations.add('punch', [5], 5, true);
-    
-    //kick
-    Player1.character.animations.add('kick', [6], 5, true);
-
-    //player got hit animation
-    Player1.character.animations.add('ko', [7], 5, true);
-
-
-    Player1.character.scale.x = 2;
-    Player1.character.scale.y = 2;
-    */
-    
-    //  controls
-    //cursors  = game.input.keyboard.createCursorKeys();
-    //cursors = new Object();
-    /*cursors = game.input.keyboard.addKeys({ 'up': Phaser.KeyCode.UP, 'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 'right': Phaser.KeyCode.RIGHT });
-    
-    punchkey = game.input.keyboard.addKey(Phaser.Keyboard.P);
-    kickkey  = game.input.keyboard.addKey(Phaser.Keyboard.O);
-    fireButton = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
-	*/
-
-
-    //controller2 = new Object();
-    //controller2 = game.input.keyboard.addKeys({ 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D , 'punch': Phaser.KeyCode.T, 'kick': Phaser.KeyCode.R});
-
-
-    //controller2 = game.input.keyboard.addKeys( { 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D, 'tackle': Phaser.Keycode.T } );
-
-    //controller2 = game.input.keyboard.addKeys( { 'up': Phaser.Keyboard.W, 'down': Phaser.Keyboard.S, 'left': Phaser.Keyboard.A, 'right': Phaser.Keyboard.D, 'tackle': Phaser.Keyboard.T } );
-
-
-
-/*
-myPlayer.health = 100;
-healthText = game.add.text(8, 32, 'score: 0', { fontSize: '32px', fill: '#000' });
-healthText.text = 'Health: ' + myPlayer.health;
-
-//Extend (make sprite class parent of these 2 classes) item class and fighter class
-*/
+   
     
 }
 
@@ -190,96 +127,6 @@ function update() {
 
    	updateInput(controller1,Player1);
    	updateInput(controller2,Player2);
-
-    //Player1 stuff
-   
-   /*
-    if(Player1.character.body.velocity.x > 20)
-    {
-        Player1.character.body.velocity.x = Player1.character.body.velocity.x - 20;
-    }
-
-    else if(Player1.character.body.velocity.x < -20)
-    {
-        Player1.character.body.velocity.x = Player1.character.body.velocity.x + 20;
-    }
-
-    else if(Player1.character.body.velocity.x >= -20 && Player1.character.body.velocity.x <= 20)
-    {
-        Player1.character.body.velocity.x = 0;
-    }
-	*/
-
-    /*
-    if (controller1.left.isDown)
-    {
-        //  Move to the left
-        
-        
-        if (Player1.character.scale.x > 0 ){
-        Player1.character.scale.x *=-1;
-        }
-        
-        Player1.character.body.velocity.x = -250;
-        Player1.character.animations.play('right');
-    }
-
-    else if (controller1.right.isDown)
-    {
-        //  Move to the right
-        
-        //logic to change direction facing
-        if (Player1.character.scale.x < 0 ){
-        Player1.character.scale.x *=-1;
-        }
-        
-        Player1.character.body.velocity.x = 250;
-        Player1.character.animations.play('right');
-    }
-    else if (controller1.up.isDown && Player1.character.body.touching.down)
-    {
-        Player1.character.body.velocity.y = -350;
-    }
-     else if (controller1.down.isDown && Player1.character.body.touching.down)
-    {
-        Player1.character.animations.play('shield');
-    }
-    else if (controller1.punch.isDown)
-    {
-        //logic to change direction facing
-        if (Player1.character.scale.x < 0 ){
-       Player1.character.body.velocity.x = -250;
-        }
-        else
-        {
-        Player1.character.body.velocity.x = 250;
-        }
-
-        Player1.character.animations.play('punch');
-    }        
-    else if (controller1.kick.isDown)
-    {
-        //  Move to the right
-        
-        //logic to change direction facing
-        if (Player1.character.scale.x < 0 ){
-       Player1.character.body.velocity.x = -250;
-        }
-        else
-        {
-        Player1.character.body.velocity.x = 250;
-        }
-
-        Player1.character.animations.play('kick');
-    }        
-    else
-    {
-        Player1.character.body.velocity.x = 0;
-        Player1.character.animations.play('idle');
-    }*/
-    
-
-    
     
 }
 
@@ -340,8 +187,6 @@ function Fighter(character,health,startx,starty,controlnum)
 	this.controller2 = new Object;
 	controller2 = game.input.keyboard.addKeys({ 'up': Phaser.KeyCode.UP, 'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 'right': Phaser.KeyCode.RIGHT , 'punch': Phaser.KeyCode.O, 'kick': Phaser.KeyCode.P});
 	}
-
-
 
     }
 
