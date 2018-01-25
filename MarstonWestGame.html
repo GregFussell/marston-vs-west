@@ -115,15 +115,21 @@ function create() {
     Player1 = new Fighter('dude', 100, 200,300,1);
     Player2 = new Fighter('chick', 100, 400,300,2);
    
+   	bottle = new item('bottle', 300, 200);
     
 }
 
 function update() {
 
-    //  Collide the player and the stars with the platforms
+    //  Collide the players with the platforms and eachother
     game.physics.arcade.collide(Player1.character, platforms); 
     game.physics.arcade.collide(Player2.character, platforms);
-    game.physics.arcade.collide(Player1.character,Player2.character); 
+    game.physics.arcade.collide(Player1.character,Player2.character);
+
+    //Enable items collisions
+    game.physics.arcade.collide(bottle.type, platforms);
+    game.physics.arcade.collide(Player1.character, bottle.type);
+	game.physics.arcade.collide(Player2.character, bottle.type);
 
    	updateInput(controller1,Player1);
    	updateInput(controller2,Player2);
@@ -269,6 +275,16 @@ function render() {
 
 }
 
+function item(type, startx, starty){
+	this.type = game.add.sprite(startx, starty, type);
+	
+	game.physics.arcade.enable(this.type);
+
+
+	this.type.body.bounce.y = 0;//0.2;
+    this.type.body.gravity.y = 400;
+    this.type.body.collideWorldBounds = false;
+}
 
 </script>
 
