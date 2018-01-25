@@ -13,6 +13,8 @@ In order to play the game in a web browser, you need a local web server to serve
 
 Mongoose is a recommended personal embedded web server, it is an application to run/host html files so you can run phaser games on your desktop. There is a download link for it below. Once downloaded, simply put mongoose on your desktop or inside your phaser folder, select mongoose and then click on the game file to run your game!
 
+https://cesanta.com/binary.html
+
 Additionally, if you'd prefer not to install Mongoose, if you have Python installed, you can simply navigate to the directory of the file and type in the following command:
 
 For Python 2.X
@@ -22,7 +24,5 @@ For Python 3.X
 `python -m http.server`
 
 Then simply navigate to localhost:8000/MarstonWestGame.html in your browser.
-
-https://cesanta.com/binary.html
 
 
