@@ -21,7 +21,7 @@ For Python 2.X
 For Python 3.X
 `python -m http.server`
 
-Then simply navigate to localhost:8000 in your browser.
+Then simply navigate to localhost:8000/MarstonWestGame.html in your browser.
 
 https://cesanta.com/binary.html
 
