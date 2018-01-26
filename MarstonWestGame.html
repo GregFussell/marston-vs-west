@@ -11,11 +11,31 @@
     </style>
 </head>
 <body>
-
+<script src=main.js></script>
 <script type="text/javascript">
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+/*var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update }),Main=function(){};
+Main.prototype={
+	init: function ()  {
+    this.loadingBar = game.make.sprite(game.world.centerX-(387/2), 400, "loading");
+    this.status     = game.make.text(game.world.centerX, 380, 'Loading...', {fill: 'white'});
+    utils.centerGameObjects([this.status]);
+  	}
+	preload: function(){
+		game.load.image('test', 'assets/Space.jpg')
+		game.load.script('test', 'assets/test.js')
+		game.load.script('utils', 'assets/utils.js')
+	}
+	create: function(){
+          game.state.add('test',test);
+          game.state.start('test');
+	}
 
-function preload() {
+
+};
+game.state.add('Main',Main);
+game.state.start('Main');
+
+/*function preload() {
 
     game.load.image('sky', 'assets/sky.png');
     //game.load.image('ground', 'assets/platform.png');
@@ -35,7 +55,7 @@ function preload() {
     game.load.spritesheet('bottle', 'assets/bottle.png', 32, 32 );
     game.load.spritesheet('book', 'assets/book.png', 32, 32 );
     game.load.spritesheet('Sandbag', 'assets/sandbag.png', 32, 32 );
-}
+}*/
 
 var player;
 var weapon;
