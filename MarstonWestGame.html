@@ -43,6 +43,9 @@ var weapon2;
 var weapon3;
 var weapon3y;
 
+var weapon1;
+
+
 var platforms;
 var cursors;
 var punchkey;
@@ -74,11 +77,16 @@ var hitboxes;
 var prevkey; //currently unused
 
 var Player1;
-var Player1;
+var Player2;
 
 var controller1;
 var controller2;
 
+//cooldown vars
+var cooldown1;
+var cooldown2;
+
+var charactername;
 
 function create() {
 
@@ -116,7 +124,16 @@ function create() {
     Player2 = new Fighter('chick', 100, 400,300,2);
    
    	bottle = new item('bottle', 300, 200);
-    
+
+    /*
+    weapon1 = game.add.weapon(1, 'slash');
+    weapon1.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
+    weapon1.bulletLifespan = 50;
+    weapon1.bulletSpeed = 0;
+    weapon1.fireRate = 1;
+    weapon1.trackSprite(Player2.character, 28, 40, true);
+    */
+
 }
 
 function update() {
@@ -131,15 +148,15 @@ function update() {
     game.physics.arcade.collide(Player1.character, bottle.type);
 	game.physics.arcade.collide(Player2.character, bottle.type);
 
-   	updateInput(controller1,Player1);
-   	updateInput(controller2,Player2);
+   	updateInput(controller1,Player1,cooldown1);
+   	updateInput(controller2,Player2,cooldown2);
+
     
 }
 
 //fighter class
 function Fighter(character,health,startx,starty,controlnum) 
     {
-
     this.health = health;//player start health
     this.state = 0; //player state for state machine?
     this.startx = startx;
@@ -191,14 +208,31 @@ function Fighter(character,health,startx,starty,controlnum)
 	else if(controlnum == 2)
 	{
 	this.controller2 = new Object;
-	controller2 = game.input.keyboard.addKeys({ 'up': Phaser.KeyCode.UP, 'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 'right': Phaser.KeyCode.RIGHT , 'punch': Phaser.KeyCode.O, 'kick': Phaser.KeyCode.P});
+	controller2 = game.input.keyboard.addKeys({ 'up': Phaser.KeyCode.UP, 'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 'right': Phaser.KeyCode.RIGHT , 'punch': Phaser.KeyCode.P, 'kick': Phaser.KeyCode.O});
 	}
+
+    /*Weapon Creation
+    if (controlnum == 2){
+        this.weapon1 = game.add.weapon(1, 'slash');
+        weapon1.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
+        weapon1.bulletLifespan = 50;
+        weapon1.bulletSpeed = 0;
+        weapon1.fireRate = 1;
+        weapon1.trackSprite(character, 28, 50, true);
+    }*/
+
+    this.weapon1 = game.add.weapon(1, 'slash');
+    this.weapon1.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
+    this.weapon1.bulletLifespan = 50; //50
+    this.weapon1.bulletSpeed = 0; //0
+    this.weapon1.fireRate = 100;
+    this.weapon1.trackSprite(this.character, 28, 40, true);
 
     }
 
 
 
-function updateInput(controller,Fighter)
+function updateInput(controller,Fighter,cooldownNum)
 {
 if (controller.left.isDown)
     {
@@ -207,6 +241,7 @@ if (controller.left.isDown)
         
         if (Fighter.character.scale.x > 0 ){
         Fighter.character.scale.x *=-1;
+        Fighter.weapon1.trackSprite(Fighter.character, 28, -40, true);
         }
         
         Fighter.character.body.velocity.x = -250;
@@ -220,6 +255,7 @@ if (controller.left.isDown)
         //logic to change direction facing
         if (Fighter.character.scale.x < 0 ){
         Fighter.character.scale.x *=-1;
+        Fighter.weapon1.trackSprite(Fighter.character, 28, 40, true);
         }
         
         Fighter.character.body.velocity.x = 250;
@@ -233,7 +269,7 @@ if (controller.left.isDown)
     {
         Fighter.character.animations.play('shield');
     }
-    else if (controller.punch.isDown)
+    else if (controller.punch.isDown && controller.punch.downDuration(80))
     {
         //logic to change direction facing
         if (Fighter.character.scale.x < 0 ){
@@ -245,8 +281,11 @@ if (controller.left.isDown)
         }
 
         Fighter.character.animations.play('punch');
+        Fighter.weapon1.fire();
+
+
     }        
-    else if (controller.kick.isDown)
+    else if (controller.kick.isDown && controller.kick.downDuration(80))
     {
         //  Move to the right
         
@@ -260,7 +299,10 @@ if (controller.left.isDown)
         }
 
         Fighter.character.animations.play('kick');
-    }        
+        Fighter.weapon1.fire();
+       
+    } 
+    
     else
     {
         Fighter.character.body.velocity.x = 0;
@@ -268,6 +310,7 @@ if (controller.left.isDown)
     }
 
 }
+
 
 function render() {
 
